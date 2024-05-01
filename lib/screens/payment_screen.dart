@@ -4,6 +4,8 @@ import 'package:qafworld_app/screens/deposit_history.dart';
 import 'package:qafworld_app/screens/home.dart';
 import 'package:qafworld_app/screens/login_screen.dart';
 
+import '../widgets/payment_container_widget.dart';
+
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
 
@@ -41,7 +43,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             child: IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInScreen()));
+                    MaterialPageRoute(builder: (context) => const LogInScreen()));
               },
               icon: const Icon(Icons.login),
             ),
@@ -77,7 +79,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 splashColor: Colors.blue,
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(builder: (context) => const HomeScreen()));
                 },
                 title: const Text('Home'),
                 leading: const Icon(Icons.home),
@@ -89,7 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DashboardScreen()));
+                          builder: (context) => const DashboardScreen()));
                 },
                 title: const Text('Dashboard'),
                 leading: const Icon(Icons.dashboard),
@@ -101,7 +103,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PaymentScreen()));
+                          builder: (context) => const PaymentScreen()));
                 },
                 title: const Text('Add Fund'),
                 leading: const Icon(Icons.payment),
@@ -113,7 +115,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DepositHistoryScreen()));
+                          builder: (context) => const DepositHistoryScreen()));
                 },
                 title: const Text('Deposit History'),
                 leading: const Icon(Icons.history_edu_outlined),
@@ -128,7 +130,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 splashColor: Colors.blue,
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(builder: (context) => const HomeScreen()));
                 },
                 title: const Text('Plan'),
                 leading: const Icon(Icons.next_plan_outlined),
@@ -158,60 +160,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Add Fund',
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.indigo),
             ),
-            GridView.builder(
-                shrinkWrap: true,
-                itemCount: 3,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, mainAxisExtent: height * 0.3),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: height * 0.3,
-                    width: width * 0.3,
-                    margin: EdgeInsets.only(left: 10, bottom: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          logos[index],
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Container(
-                          height: height * 0.05,
-                          width: width * 0.4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: const LinearGradient(colors: [
-                                Color(0xfffaaf40),
-                                Color(0xff01acee)
-                              ])),
-                          child: Center(
-                              child: Text(
-                            'Pay Now',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )),
-                        )
-                      ],
-                    ),
-                  );
-                })
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos)
+   ,         
+                Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos),
+              ],
+            )
+   ,         Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos)
+   ,         
+   
           ],
         ),
       ),
     );
   }
 }
+

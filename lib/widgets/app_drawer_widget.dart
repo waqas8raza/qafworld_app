@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qafworld_app/screens/profile_screens/ProfileScreen.dart';
 
 import '../screens/about_screen.dart';
 import '../screens/bottom_navbar.dart';
@@ -109,12 +110,14 @@ class AppDrawerWidget extends StatelessWidget {
               title: const Text('FAQ'),
               leading: const Icon(Icons.question_mark_rounded),
             ),
-            // ListTile(
-            //   splashColor: Colors.blue,
-            //   onTap: (){},
-            //   title: const Text('Blog'),
-            //   leading: const Icon(Icons.article),
-            // ),
+            ListTile(
+              splashColor: Colors.blue,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+              },
+              title: const Text('profile'),
+              leading: const Icon(Icons.person),
+            ),
             ListTile(
               splashColor: Colors.blue,
               onTap: () {
