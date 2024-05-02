@@ -63,8 +63,6 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarWidget(
-        height: height,
-        width: width,
         scaffoldKey: _scaffoldKey,
       ),
       endDrawer: AppDrawerWidget(height: height, width: width),

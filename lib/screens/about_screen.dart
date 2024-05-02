@@ -21,8 +21,7 @@ class _AboutScreenState extends State<AboutScreen> {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       key: _scaffoldKey,
-      appBar:
-          AppBarWidget(height: height, width: width, scaffoldKey: _scaffoldKey),
+      appBar: AppBarWidget(scaffoldKey: _scaffoldKey),
       //  AppBar(
       //   leading: Image.asset('assets/logo.png'),
       //   actions: [
