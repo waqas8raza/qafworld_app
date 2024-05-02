@@ -20,10 +20,10 @@ class Paymentcontainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height * 0.3,
-      width: width * 0.3,
+      width: width * 0.35,
       margin: EdgeInsets.only(left: 10, bottom: 10),
       decoration: BoxDecoration(
-          color: Colors.white,
+          
           borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
@@ -31,11 +31,11 @@ class Paymentcontainer extends StatelessWidget {
             imagePath
           ),
           SizedBox(
-            height: height * 0.02,
+            height: height * 0.03,
           ),
           Container(
-            height: height * 0.05,
-            width: width * 0.4,
+            height: height * 0.055,
+            width: width * 0.5,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient: const LinearGradient(colors: [

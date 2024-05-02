@@ -42,8 +42,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.pinkAccent.shade100),
             child: IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LogInScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LogInScreen()));
               },
               icon: const Icon(Icons.login),
             ),
@@ -78,13 +80,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ListTile(
                 splashColor: Colors.blue,
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
                 },
                 title: const Text('Home'),
                 leading: const Icon(Icons.home),
               ),
-
               ListTile(
                 splashColor: Colors.blue,
                 onTap: () {
@@ -96,7 +99,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 title: const Text('Dashboard'),
                 leading: const Icon(Icons.dashboard),
               ),
-
               ListTile(
                 splashColor: Colors.blue,
                 onTap: () {
@@ -108,7 +110,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 title: const Text('Add Fund'),
                 leading: const Icon(Icons.payment),
               ),
-
               ListTile(
                 splashColor: Colors.blue,
                 onTap: () {
@@ -129,8 +130,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ListTile(
                 splashColor: Colors.blue,
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
                 },
                 title: const Text('Plan'),
                 leading: const Icon(Icons.next_plan_outlined),
@@ -161,6 +164,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Add Fund',
@@ -172,18 +176,33 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos)
-   ,         
-                Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos),
+                Paymentcontainer(
+                    height: height,
+                    text: 'Pay Now',
+                    imagePath: 'assets/mez1.png',
+                    width: width,
+                    logos: logos),
+                Paymentcontainer(
+                    height: height,
+                    text: 'Pay Now',
+                    imagePath: 'assets/jaz.png',
+                    width: width,
+                    logos: logos),
               ],
-            )
-   ,         Paymentcontainer(height: height, text: 'Pay Now', imagePath: 'assets/mez1.png', width: width, logos: logos)
-   ,         
-   
+            ),
+            
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Paymentcontainer(
+                  height: height,
+                  text: 'Pay Now',
+                  imagePath: 'assets/easy1.webp',
+                  width: width,
+                  logos: logos),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
