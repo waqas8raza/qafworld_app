@@ -5,6 +5,7 @@ import 'package:qafworld_app/screens/contact_screen.dart';
 import 'package:qafworld_app/screens/facts_screen.dart';
 import 'package:qafworld_app/screens/home.dart';
 import 'package:qafworld_app/screens/payment_screen.dart';
+import 'package:qafworld_app/screens/profile_screens/ProfileScreen.dart';
 
 class BottomNavigationbar extends StatefulWidget {
   const BottomNavigationbar({super.key});
@@ -19,7 +20,7 @@ class _BottomNavigationbarState extends State<BottomNavigationbar> {
     const PaymentScreen(),
     const HomeScreen(),
       const ContactScreen(),
-      const FactsScreen()
+      const ProfileScreen()
     
   ];
 
