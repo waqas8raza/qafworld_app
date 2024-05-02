@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'AddressScreen.dart';
@@ -46,40 +45,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    height: height * .30,
-                    width: width * .90,
-                    decoration: BoxDecoration(color: Colors.grey.shade300),
-                    child: Center(
-                      child: DottedBorder(
-                        dashPattern: const [8, 4],
-                        strokeWidth: 2,
-                        child: Container(
-                          height: height * .15,
-                          width: width * .45,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade400,
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                  'assets/prof.jpg',
-                                ),
-                                fit: BoxFit.contain,
-                              )),
-                          child: const Center(
-                              child: Text(
-                            'Select An Image',
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: Container(
+                //     margin: const EdgeInsets.only(top: 30),
+                //     height: height * .30,
+                //     width: width * .90,
+                //     decoration: BoxDecoration(color: Colors.grey.shade300),
+                //     child: Center(
+                //       child:
+                //       //  DottedBorder(
+                //       //   dashPattern: const [8, 4],
+                //       //   strokeWidth: 2,
+                //       //   child: Container(
+                //       //     height: height * .15,
+                //       //     width: width * .45,
+                //       //     decoration: BoxDecoration(
+                //       //         color: Colors.grey.shade400,
+                //       //         image: const DecorationImage(
+                //       //           image: AssetImage(
+                //       //             'assets/prof.jpg',
+                //       //           ),
+                //       //           fit: BoxFit.contain,
+                //       //         )),
+                //       //     child: const Center(
+                //       //         child: Text(
+                //       //       'Select An Image',
+                //       //       style: TextStyle(
+                //       //           fontSize: 24,
+                //       //           fontWeight: FontWeight.bold,
+                //       //           color: Colors.white),
+                //       //     )),
+                //       //   ),
+                //       // ),
+
+                //     ),
+                //   ),
+                // ),
+
                 SizedBox(
                   height: height * .050,
                 ),
@@ -122,7 +124,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             container2 = false;
                             container3 = false;
                             container4 = false;
-                            
                           });
                         },
                         child: Container(
@@ -216,7 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const AddressScreen()));
+                                    builder: (context) =>
+                                        const AddressScreen()));
                           });
                         },
                         child: Container(
@@ -335,7 +337,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                
               ],
             ),
           ),

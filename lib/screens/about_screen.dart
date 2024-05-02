@@ -3,6 +3,8 @@ import 'package:qafworld_app/screens/contact_screen.dart';
 import 'package:qafworld_app/screens/facts_screen.dart';
 import 'package:qafworld_app/screens/home.dart';
 import 'package:qafworld_app/screens/login_screen.dart';
+import 'package:qafworld_app/widgets/app_drawer_widget.dart';
+import 'package:qafworld_app/widgets/appbar_widget.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -19,102 +21,107 @@ class _AboutScreenState extends State<AboutScreen> {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        leading: Image.asset('assets/logo.png'),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            height: height * .04,
-            width: width * .1,
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xfffaaf40), Color(0xff01acee)]),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.pinkAccent.shade100),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInScreen()));
-              },
-              icon: const Icon(Icons.login),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            height: height * .04,
-            width: width * .1,
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xfffaaf40), Color(0xff01acee)]),
-                borderRadius: BorderRadius.circular(10)),
-            child: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState?.openEndDrawer();
-              },
-              icon: const Icon(Icons.menu),
-            ),
-          ),
-        ],
-        automaticallyImplyLeading: false,
-      ),
-      endDrawer: Drawer(
-        child: SizedBox(
-          height: height,
-          width: width,
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * .1,
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
-                title: const Text('Home'),
-                leading: const Icon(Icons.home),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AboutScreen()));
-                },
-                title: const Text('About'),
-                leading: const Icon(Icons.perm_contact_calendar_sharp),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
-                title: const Text('Plan'),
-                leading: const Icon(Icons.next_plan_outlined),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>FactsScreen()));},
-                title: const Text('FAQ'),
-                leading: const Icon(Icons.question_mark_rounded),
-              ),
-              // ListTile(
-              //   splashColor: Colors.blue,
-              //   onTap: () {},
-              //   title: const Text('Blog'),
-              //   leading: const Icon(Icons.article),
-              // ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));},
-                title: const Text('Contact'),
-                leading: const Icon(Icons.contact_page_rounded),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar:
+          AppBarWidget(height: height, width: width, scaffoldKey: _scaffoldKey),
+      //  AppBar(
+      //   leading: Image.asset('assets/logo.png'),
+      //   actions: [
+      //     Container(
+      //       margin: const EdgeInsets.only(right: 10),
+      //       height: height * .04,
+      //       width: width * .1,
+      //       decoration: BoxDecoration(
+      //           gradient: const LinearGradient(
+      //               colors: [Color(0xfffaaf40), Color(0xff01acee)]),
+      //           borderRadius: BorderRadius.circular(10),
+      //           color: Colors.pinkAccent.shade100),
+      //       child: IconButton(
+      //         onPressed: () {
+      //           Navigator.push(context,
+      //               MaterialPageRoute(builder: (context) => LogInScreen()));
+      //         },
+      //         icon: const Icon(Icons.login),
+      //       ),
+      //     ),
+      //     Container(
+      //       margin: const EdgeInsets.only(right: 10),
+      //       height: height * .04,
+      //       width: width * .1,
+      //       decoration: BoxDecoration(
+      //           gradient: const LinearGradient(
+      //               colors: [Color(0xfffaaf40), Color(0xff01acee)]),
+      //           borderRadius: BorderRadius.circular(10)),
+      //       child: IconButton(
+      //         onPressed: () {
+      //           _scaffoldKey.currentState?.openEndDrawer();
+      //         },
+      //         icon: const Icon(Icons.menu),
+      //       ),
+      //     ),
+      //   ],
+      //   automaticallyImplyLeading: false,
+      // ),
+
+      endDrawer: AppDrawerWidget(height: height, width: width),
+      //  Drawer(
+      //   child: SizedBox(
+      //     height: height,
+      //     width: width,
+      //     child: Column(
+      //       children: [
+      //         SizedBox(
+      //           height: height * .1,
+      //         ),
+      //         ListTile(
+      //           splashColor: Colors.blue,
+      //           onTap: () {
+      //             Navigator.push(context,
+      //                 MaterialPageRoute(builder: (context) => HomeScreen()));
+      //           },
+      //           title: const Text('Home'),
+      //           leading: const Icon(Icons.home),
+      //         ),
+      //         ListTile(
+      //           splashColor: Colors.blue,
+      //           onTap: () {
+      //             Navigator.push(context,
+      //                 MaterialPageRoute(builder: (context) => AboutScreen()));
+      //           },
+      //           title: const Text('About'),
+      //           leading: const Icon(Icons.perm_contact_calendar_sharp),
+      //         ),
+      //         ListTile(
+      //           splashColor: Colors.blue,
+      //           onTap: () {
+      //             Navigator.push(context,
+      //                 MaterialPageRoute(builder: (context) => HomeScreen()));
+      //           },
+      //           title: const Text('Plan'),
+      //           leading: const Icon(Icons.next_plan_outlined),
+      //         ),
+      //         ListTile(
+      //           splashColor: Colors.blue,
+      //           onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>FactsScreen()));},
+      //           title: const Text('FAQ'),
+      //           leading: const Icon(Icons.question_mark_rounded),
+      //         ),
+      //         // ListTile(
+      //         //   splashColor: Colors.blue,
+      //         //   onTap: () {},
+      //         //   title: const Text('Blog'),
+      //         //   leading: const Icon(Icons.article),
+      //         // ),
+      //         ListTile(
+      //           splashColor: Colors.blue,
+      //           onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));},
+      //           title: const Text('Contact'),
+      //           leading: const Icon(Icons.contact_page_rounded),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(

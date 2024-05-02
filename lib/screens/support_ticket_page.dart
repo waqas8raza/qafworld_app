@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({super.key});
+class SupportTicketPage extends StatefulWidget {
+  const SupportTicketPage({super.key});
 
   @override
-  State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
+  State<SupportTicketPage> createState() => _SupportTicketPageState();
 }
 
-class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
+class _SupportTicketPageState extends State<SupportTicketPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -79,7 +80,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Deposit History',
+                  'Support Ticket',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -94,7 +95,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                     builder: (context) {
                       return Center(
                           child: Container(
-                        height: height * 0.5,
+                        height: height * 0.6,
                         width: width,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -102,95 +103,68 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Material(
-                            child: Column(children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Search',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.none,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.indigo),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(Icons.close))
-                                ],
-                              ),
-                              Center(
-                                child: Container(
-                                  height: height * 0.001,
-                                  width: width,
-                                  decoration:
-                                      const BoxDecoration(color: Colors.black),
-                                ),
-                              ),
-                              SizedBox(
-                                height: height * 0.02,
-                              ),
-                              const Material(
-                                  child: AppTextFormWidget(
-                                hintText: 'Search by transaction id',
-                              )),
-                              SizedBox(
-                                height: height * 0.01,
-                              ),
-                              DropdownButtonFormField<String>(
-                                value: _selectedLanguage,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10),
-                                ),
-                                items: <String>[
-                                  'All Payment',
-                                  'Complete Payment',
-                                  'Pending Payment',
-                                  'Cancel Payment'
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedLanguage = newValue!;
-                                    _languageController.text = newValue;
-                                  });
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                readOnly: true,
-                                controller: _dateController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  suffixIcon: Icon(Icons.calendar_today),
-                                  labelText: 'Select Date',
-                                ),
-                                onTap: () {
-                                  _selectDate(context);
-                                },
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              appSearchButtonWidget(
-                                height: height * 0.05,
-                                width: width * 0.80,
-                                onPressed: () {},
-                              )
-                            ]),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    const Text(
+                                      'Subject',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const AppTextFormWidget(
+                                      hintText: 'Message',
+                                    ),
+                                    const Text(
+                                      'Message',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const AppTextFormWidget(
+                                      maxlines: 5,
+                                      hintText: 'Message',
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.01,
+                                    ),
+                                    const Text(
+                                      'Upload File',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Row(
+                                      children: [
+                                        appSearchButtonWidget(
+                                          text: 'Chose File',
+                                          height: height * 0.085,
+                                          width: width * 0.20,
+                                          onPressed: () {},
+                                        ),
+                                        const Expanded(
+                                          child: AppTextFormWidget(
+                                              hintText: 'No file selected'),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    Center(
+                                      child: appSearchButtonWidget(
+                                        height: height * 0.05,
+                                        width: width * 0.80,
+                                        onPressed: () {},
+                                      ),
+                                    )
+                                  ]),
+                            ),
                           ),
                         ),
                       ));
@@ -208,8 +182,12 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Icon(
+                        Icons.add_box_outlined,
+                        color: Colors.white,
+                      ),
                       const Text(
-                        'FILTER',
+                        'Create Ticket',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -218,11 +196,6 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                       SizedBox(
                         width: width * 0.02,
                       ),
-                      Image.asset(
-                        'assets/filter.png',
-                        height: height * 0.04,
-                        color: Colors.white,
-                      )
                     ],
                   ),
                 ),

@@ -5,14 +5,14 @@ import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({super.key});
+class WithdrawHistoryScreen extends StatefulWidget {
+  const WithdrawHistoryScreen({super.key});
 
   @override
-  State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
+  State<WithdrawHistoryScreen> createState() => _WithdrawHistoryScreenState();
 }
 
-class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
+class _WithdrawHistoryScreenState extends State<WithdrawHistoryScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -79,7 +79,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Deposit History',
+                  'Withdraw History',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),

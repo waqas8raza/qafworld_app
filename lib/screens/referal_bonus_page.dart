@@ -5,24 +5,16 @@ import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({super.key});
+class RefrelBonusPage extends StatefulWidget {
+  const RefrelBonusPage({super.key});
 
   @override
-  State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
+  State<RefrelBonusPage> createState() => _RefrelBonusPageState();
 }
 
-class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
+class _RefrelBonusPageState extends State<RefrelBonusPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String allPayment = "All Payment";
 
-  String _selectedLanguage = 'All Payment';
-
-  List paymentmethod = [
-    'Complete Payment',
-    'Pending Payment',
-    'Cancel Payment'
-  ];
   bool isOpen = false;
 
   List items = ['Complete Payment', 'Pending Payment', 'Cancel Payment'];
@@ -35,8 +27,6 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
     'Date-Time'
   ];
 
-  String _dropDownValue = "All Payment";
-  final TextEditingController _languageController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
@@ -79,7 +69,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Deposit History',
+                  'Refrel Bonus',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -135,35 +125,13 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                               ),
                               const Material(
                                   child: AppTextFormWidget(
-                                hintText: 'Search by transaction id',
+                                hintText: 'Search by User',
                               )),
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              DropdownButtonFormField<String>(
-                                value: _selectedLanguage,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10),
-                                ),
-                                items: <String>[
-                                  'All Payment',
-                                  'Complete Payment',
-                                  'Pending Payment',
-                                  'Cancel Payment'
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedLanguage = newValue!;
-                                    _languageController.text = newValue;
-                                  });
-                                },
+                              const AppTextFormWidget(
+                                hintText: 'Search by transaction id',
                               ),
                               const SizedBox(
                                 height: 10,

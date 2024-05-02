@@ -5,18 +5,18 @@ import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({super.key});
+class AdsViewEarningListPage extends StatefulWidget {
+  const AdsViewEarningListPage({super.key});
 
   @override
-  State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
+  State<AdsViewEarningListPage> createState() => _AdsViewEarningListPageState();
 }
 
-class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
+class _AdsViewEarningListPageState extends State<AdsViewEarningListPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
-  String _selectedLanguage = 'All Payment';
+  String _selectedLanguage = 'Adevertisement Type';
 
   List paymentmethod = [
     'Complete Payment',
@@ -79,7 +79,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Deposit History',
+                  'Click Earnings List',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -148,10 +148,11 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                                       EdgeInsets.symmetric(horizontal: 10),
                                 ),
                                 items: <String>[
-                                  'All Payment',
-                                  'Complete Payment',
-                                  'Pending Payment',
-                                  'Cancel Payment'
+                                  'Adevertisement Type',
+                                  'URL/LINK',
+                                  'Youtube Embeded Link',
+                                  'Picture/Banner',
+                                  'Code/Script'
                                 ].map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,

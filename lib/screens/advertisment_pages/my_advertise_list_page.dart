@@ -5,18 +5,20 @@ import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class DepositHistoryScreen extends StatefulWidget {
-  const DepositHistoryScreen({super.key});
+class MyAdversisementListPage extends StatefulWidget {
+  const MyAdversisementListPage({super.key});
 
   @override
-  State<DepositHistoryScreen> createState() => _DepositHistoryScreenState();
+  State<MyAdversisementListPage> createState() =>
+      _MyAdversisementListPageState();
 }
 
-class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
+class _MyAdversisementListPageState extends State<MyAdversisementListPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
-  String _selectedLanguage = 'All Payment';
+  String advertisementType = 'Advertisement Type';
+  String adsType = 'All Ads';
 
   List paymentmethod = [
     'Complete Payment',
@@ -35,8 +37,10 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
     'Date-Time'
   ];
 
-  String _dropDownValue = "All Payment";
-  final TextEditingController _languageController = TextEditingController();
+  String _dropDownValue = "Advertisement Type";
+  final TextEditingController _advertisementController =
+      TextEditingController();
+  final TextEditingController _adsController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
@@ -79,7 +83,7 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Deposit History',
+                  'My Advertisement',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -141,17 +145,18 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                                 height: height * 0.01,
                               ),
                               DropdownButtonFormField<String>(
-                                value: _selectedLanguage,
+                                value: advertisementType,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 10),
                                 ),
                                 items: <String>[
-                                  'All Payment',
-                                  'Complete Payment',
-                                  'Pending Payment',
-                                  'Cancel Payment'
+                                  'Advertisement Type',
+                                  'URL/LINK',
+                                  'Youtube Embeded Link',
+                                  'Picture/Banner',
+                                  'Code/Script'
                                 ].map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -160,13 +165,42 @@ class _DepositHistoryScreenState extends State<DepositHistoryScreen> {
                                 }).toList(),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    _selectedLanguage = newValue!;
-                                    _languageController.text = newValue;
+                                    advertisementType = newValue!;
+                                    _advertisementController.text = newValue;
                                   });
                                 },
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              DropdownButtonFormField<String>(
+                                value: adsType,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 10),
+                                ),
+                                items: <String>[
+                                  'All Ads',
+                                  'Approved Ads',
+                                  'Deactive Ads',
+                                  'Rejected Ads',
+                                  'Pending Ads'
+                                ].map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    adsType = newValue!;
+                                    _adsController.text = newValue;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                height: height * 0.01,
                               ),
                               TextFormField(
                                 readOnly: true,

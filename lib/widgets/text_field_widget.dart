@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class AppTextFormWidget extends StatelessWidget {
   final String hintText;
-  const AppTextFormWidget({
-    super.key,
-    required this.hintText,
-  });
+  final int? maxlines;
+  const AppTextFormWidget(
+      {super.key, required this.hintText, this.maxlines = 1});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxlines,
       decoration: InputDecoration(
           hintText: hintText,
           focusedBorder: OutlineInputBorder(
