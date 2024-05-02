@@ -5,17 +5,19 @@ import '../screens/login_screen.dart';
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
     super.key,
-    required this.height,
-    required this.width,
+    // required this.height,
+    // required this.width,
     required GlobalKey<ScaffoldState> scaffoldKey,
   }) : _scaffoldKey = scaffoldKey;
 
-  final double height;
-  final double width;
+  // final double height;
+  // final double width;
   final GlobalKey<ScaffoldState> _scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
+     double height=MediaQuery.sizeOf(context).height;
+    double width=MediaQuery.sizeOf(context).width;
     return AppBar(
       leading: Image.asset('assets/logo.png'),
       actions: [

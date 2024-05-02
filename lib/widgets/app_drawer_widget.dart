@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qafworld_app/screens/2step_security_screen.dart';
+import 'package:qafworld_app/screens/my_refferal.dart';
 import 'package:qafworld_app/screens/profile_screens/ProfileScreen.dart';
+import 'package:qafworld_app/screens/withdraw_screen.dart';
 
 import '../screens/about_screen.dart';
 import '../screens/bottom_navbar.dart';
@@ -110,6 +113,18 @@ class AppDrawerWidget extends StatelessWidget {
               title: const Text('FAQ'),
               leading: const Icon(Icons.question_mark_rounded),
             ),
+
+             ListTile(
+              splashColor: Colors.blue,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WithDrawlScreen()));
+              },
+              title: const Text('Withdraw'),
+              leading: const Icon(Icons.money_sharp),
+            ),
             ListTile(
               splashColor: Colors.blue,
               onTap: (){
@@ -117,6 +132,24 @@ class AppDrawerWidget extends StatelessWidget {
               },
               title: const Text('profile'),
               leading: const Icon(Icons.person),
+            ),
+
+             ListTile(
+              splashColor: Colors.blue,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MyRefferalScreen()));
+              },
+              title: const Text('My Refferal'),
+              leading: const Icon(Icons.share),
+            ),
+
+             ListTile(
+              splashColor: Colors.blue,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>TwoStepSecurityScreen()));
+              },
+              title: const Text('2-FA Security'),
+              leading: const Icon(Icons.security),
             ),
             ListTile(
               splashColor: Colors.blue,

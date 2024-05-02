@@ -211,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar:
-          AppBarWidget(height: height, width: width, scaffoldKey: _scaffoldKey),
+          AppBarWidget( scaffoldKey: _scaffoldKey),
       endDrawer: AppDrawerWidget(height: height, width: width),
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
