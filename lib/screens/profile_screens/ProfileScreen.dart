@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'AddressScreen.dart';
@@ -38,50 +39,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(color: Colors.grey.shade200),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      body: Container(
+        decoration: BoxDecoration(color: Colors.grey.shade200),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: SingleChildScrollView(
             child: Column(
               children: [
-                // Center(
-                //   child: Container(
-                //     margin: const EdgeInsets.only(top: 30),
-                //     height: height * .30,
-                //     width: width * .90,
-                //     decoration: BoxDecoration(color: Colors.grey.shade300),
-                //     child: Center(
-                //       child:
-                //       //  DottedBorder(
-                //       //   dashPattern: const [8, 4],
-                //       //   strokeWidth: 2,
-                //       //   child: Container(
-                //       //     height: height * .15,
-                //       //     width: width * .45,
-                //       //     decoration: BoxDecoration(
-                //       //         color: Colors.grey.shade400,
-                //       //         image: const DecorationImage(
-                //       //           image: AssetImage(
-                //       //             'assets/prof.jpg',
-                //       //           ),
-                //       //           fit: BoxFit.contain,
-                //       //         )),
-                //       //     child: const Center(
-                //       //         child: Text(
-                //       //       'Select An Image',
-                //       //       style: TextStyle(
-                //       //           fontSize: 24,
-                //       //           fontWeight: FontWeight.bold,
-                //       //           color: Colors.white),
-                //       //     )),
-                //       //   ),
-                //       // ),
-
-                //     ),
-                //   ),
-                // ),
-
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    height: height * .30,
+                    width: width * .90,
+                    decoration: BoxDecoration(color: Colors.grey.shade300),
+                    child: Center(
+                      child: DottedBorder(
+                        dashPattern: const [8, 4],
+                        strokeWidth: 2,
+                        child: Container(
+                          height: height * .15,
+                          width: width * .45,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade400,
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                  'assets/prof.jpg',
+                                ),
+                                fit: BoxFit.contain,
+                              )),
+                          child: const Center(
+                              child: Text(
+                            'Select An Image',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: height * .050,
                 ),
@@ -308,10 +306,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
                           return null;
                         },
-                        maxLines: 3,
+                        maxLines: 2,
                       ),
                       SizedBox(
-                        height: height * .040,
+                        height: height * .010,
                       ),
                       GestureDetector(
                         onTap: () {},

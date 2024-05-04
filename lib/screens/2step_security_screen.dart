@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 
-import 'login_screen.dart';
-
 class TwoStepSecurityScreen extends StatefulWidget {
   const TwoStepSecurityScreen({super.key});
 
@@ -110,7 +108,9 @@ class _TwoStepSecurityScreenState extends State<TwoStepSecurityScreen> {
                                           children: [
                                             const Text(
                                               'Verify Your OTP',
-                                              style: TextStyle(decoration: TextDecoration.none,
+                                              style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.none,
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -180,9 +180,8 @@ class _TwoStepSecurityScreenState extends State<TwoStepSecurityScreen> {
                                               ),
                                             ),
                                             Material(
-                                              child: InkWell(onTap: () {
-                                                
-                                              },
+                                              child: InkWell(
+                                                onTap: () {},
                                                 child: Container(
                                                   height: height * 0.06,
                                                   width: width * 0.35,

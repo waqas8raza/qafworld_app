@@ -1,8 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qafworld_app/screens/contact_screen.dart';
-import 'package:qafworld_app/screens/home.dart';
-import 'package:qafworld_app/screens/payment_screen.dart';
+import 'package:qafworld_app/screens/dashboard.dart';
+import 'package:qafworld_app/screens/add_funds_page.dart';
 import 'package:qafworld_app/screens/profile_screens/ProfileScreen.dart';
 
 class BottomNavigationbar extends StatefulWidget {
@@ -15,8 +16,8 @@ class BottomNavigationbar extends StatefulWidget {
 class _BottomNavigationbarState extends State<BottomNavigationbar> {
   int index = 0;
   List screens = [
-    const PaymentScreen(),
-    const HomeScreen(),
+    const DashboardScreen(),
+    const AddFundsPage(),
     const ContactScreen(),
     const ProfileScreen()
   ];
@@ -31,11 +32,13 @@ class _BottomNavigationbarState extends State<BottomNavigationbar> {
               myIndex = index;
             });
           },
-          buttonBackgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
+          color: Theme.of(context).primaryColor,
+          buttonBackgroundColor: Theme.of(context).primaryColorDark,
           animationCurve: Curves.easeInOutCubic,
           items: const [
-            Icon(Icons.payment),
             Icon(Icons.home),
+            Icon(Icons.payment),
             Icon(Icons.contact_mail),
             Icon(Icons.person),
           ]),

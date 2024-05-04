@@ -263,45 +263,51 @@ class _MyAdversisementListPageState extends State<MyAdversisementListPage> {
             SizedBox(
               height: height * 0.01,
             ),
-            Expanded(
-              child: Container(
-                // color: Colors.black,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    Container(
-                      height: height * 0.08,
-                      width: width * 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blueAccent,
-                      ),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: transctionDataList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              transctionDataList[index],
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20),
-                            ),
-                          );
-                        },
-                      ),
+            Container(
+              // color: Colors.black,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  // color: Colors.amber,
+
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  Container(
+                    height: height * 0.4,
+                    width: width * 0.4,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                      color: Colors.grey,
                     ),
-                    const Text(
+                    child: ListView.builder(
+                      // scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: transctionDataList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            transctionDataList[index],
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
                       'No data found ',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

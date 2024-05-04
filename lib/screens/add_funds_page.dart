@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:qafworld_app/screens/dashboard.dart';
+import 'package:qafworld_app/screens/deposit_history.dart';
+import 'package:qafworld_app/screens/home.dart';
+import 'package:qafworld_app/screens/login_screen.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
-import 'package:qafworld_app/widgets/text_field_widget.dart';
 
 import '../widgets/app_search_button.dart';
 import '../widgets/payment_container_widget.dart';
+import '../widgets/text_field_widget.dart';
 
-class WithDrawlScreen extends StatefulWidget {
-  const WithDrawlScreen({super.key});
+class AddFundsPage extends StatefulWidget {
+  const AddFundsPage({super.key});
 
   @override
-  State<WithDrawlScreen> createState() => _WithDrawlScreenState();
+  State<AddFundsPage> createState() => _AddFundsPageState();
 }
 
-class _WithDrawlScreenState extends State<WithDrawlScreen> {
+class _AddFundsPageState extends State<AddFundsPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,7 @@ class _WithDrawlScreenState extends State<WithDrawlScreen> {
       'assets/jaz.png',
       'assets/easy1.webp',
     ];
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarWidget(scaffoldKey: _scaffoldKey),
@@ -36,7 +41,7 @@ class _WithDrawlScreenState extends State<WithDrawlScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Withdraw',
+              'Add Fund',
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -128,8 +133,8 @@ class _WithDrawlScreenState extends State<WithDrawlScreen> {
                           });
                     },
                     height: height,
-                    text: 'Withdraw Now',
-                    imagePath: 'assets/jaz.png',
+                    text: 'Pay Now',
+                    imagePath: 'assets/mez1.png',
                     width: width,
                     logos: logos),
                 Paymentcontainer(
@@ -215,7 +220,7 @@ class _WithDrawlScreenState extends State<WithDrawlScreen> {
                           });
                     },
                     height: height,
-                    text: 'Withdraw Now',
+                    text: 'Pay Now',
                     imagePath: 'assets/jaz.png',
                     width: width,
                     logos: logos),
@@ -305,7 +310,7 @@ class _WithDrawlScreenState extends State<WithDrawlScreen> {
                         });
                   },
                   height: height,
-                  text: 'Withdraw Now',
+                  text: 'Pay Now',
                   imagePath: 'assets/easy1.webp',
                   width: width,
                   logos: logos),

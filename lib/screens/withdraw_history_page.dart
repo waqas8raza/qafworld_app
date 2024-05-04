@@ -63,8 +63,6 @@ class _WithdrawHistoryScreenState extends State<WithdrawHistoryScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarWidget(
-        height: height,
-        width: width,
         scaffoldKey: _scaffoldKey,
       ),
       endDrawer: AppDrawerWidget(height: height, width: width),

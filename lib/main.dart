@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qafworld_app/screens/bottom_navbar.dart';
-import 'package:qafworld_app/screens/home.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:qafworld_app/screens/splash_page.dart';
+
+import 'modules/theme_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  // Get.put(ThemeController());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,9 +16,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-     debugShowCheckedModeBanner: false,
-     home: HomeScreen(),
+    final themeController = Get.put(ThemeController());
+
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: themeController.currentTheme.value,
+      home: const SplashScreen(),
     );
   }
 }
