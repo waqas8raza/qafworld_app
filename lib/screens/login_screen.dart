@@ -6,6 +6,7 @@ import 'package:qafworld_app/screens/bottom_navbar.dart';
 import 'package:qafworld_app/screens/signup_screen.dart';
 import 'package:qafworld_app/utils/app_snack_bar.dart';
 
+import '../modules/transactions/service/api_service.dart';
 import '../utils/input_validator.dart';
 import '../utils/loading_provider.dart';
 

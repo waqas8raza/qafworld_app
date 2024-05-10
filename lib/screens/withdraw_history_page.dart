@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
+import '../modules/transactions/service/api_service.dart';
+import '../widgets/app_drawer_widget.dart';
 
-class WithdrawHistoryScreen extends StatefulWidget {
+class WithdrawHistoryScreen extends ConsumerStatefulWidget {
   const WithdrawHistoryScreen({super.key});
 
   @override
-  State<WithdrawHistoryScreen> createState() => _WithdrawHistoryScreenState();
+  createState() => _WithdrawHistoryScreenState();
 }
 
-class _WithdrawHistoryScreenState extends State<WithdrawHistoryScreen> {
+class _WithdrawHistoryScreenState extends ConsumerState<WithdrawHistoryScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -34,7 +36,7 @@ class _WithdrawHistoryScreenState extends State<WithdrawHistoryScreen> {
     'Status',
     'Date-Time'
   ];
-
+  String? createdAtString;
   String _dropDownValue = "All Payment";
   final TextEditingController _languageController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -229,47 +231,215 @@ class _WithdrawHistoryScreenState extends State<WithdrawHistoryScreen> {
             SizedBox(
               height: height * 0.01,
             ),
-            Expanded(
-              child: Container(
-                // color: Colors.black,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    Container(
-                      height: height * 0.08,
-                      width: width * 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blueAccent,
-                      ),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: transctionDataList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              transctionDataList[index],
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20),
-                            ),
-                          );
-                        },
-                      ),
+            Container(
+              // color: Colors.black,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  // color: Colors.amber,
+
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  Container(
+                    height: height * 0.33,
+                    width: width * 0.3,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                      color: Colors.grey,
                     ),
-                    const Text(
-                      'No data found ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
+                    child: ListView.builder(
+                      //  scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: transctionDataList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              top: height * 0.023, left: width * 0.03),
+                          child: Text(
+                            transctionDataList[index],
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.33,
+                    width: width * 0.646,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FutureBuilder(
+                          future:
+                              ref.read(appServiceProvider).withdrawHistory(),
+                          builder: (context, snapshot) {
+                            print('hello${snapshot.data}');
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            //  print(snapshot.data!.data?.first.createdAt);
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount:
+                                  snapshot.data?.data?.payoutLog?.data?.length,
+                              itemBuilder: (context, index) {
+                                String createdAtString = snapshot.data!.data!
+                                    .payoutLog!.data![index].createdAt
+                                    .toString();
+                                DateTime createdAt = DateTime.parse(
+                                    createdAtString); // Parse string to DateTime
+                                String formattedCreatedAt =
+                                    DateFormat('yyyy-MM-dd HH:mm:ss')
+                                        .format(createdAt);
+
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot.data!.data!
+                                            .payoutLog!.data![index].id
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot.data!.data!
+                                            .payoutLog!.data![index].methodId
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.20,
+                                      child: Center(
+                                        child: Text(snapshot.data!.data!
+                                            .payoutLog!.data![index].amount
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.20,
+                                      child: Center(
+                                        child: Text(snapshot.data!.data!
+                                            .payoutLog!.data![index].charge
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.20,
+                                      child: Center(
+                                        child: Text(snapshot.data!.data!
+                                            .payoutLog!.data![index].status
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.20,
+                                      child: Center(
+                                          child: Text(
+                                              textAlign: TextAlign.center,
+                                              formattedCreatedAt) // snapshot.data!.data!
+
+                                          ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        )
+
+                        //  Text(
+                        //   'No data found ',
+                        //   style:
+                        //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        // ),
+                        ),
+                  )
+                ],
               ),
             )
+            // Expanded(
+            //   child: Container(
+            //     // color: Colors.black,
+            //     decoration:
+            //         BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            //     child: Column(
+            //       children: [
+            //         Container(
+            //           height: height * 0.08,
+            //           width: width * 100,
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(10),
+            //             color: Colors.blueAccent,
+            //           ),
+            //           child: ListView.builder(
+            //             scrollDirection: Axis.horizontal,
+            //             shrinkWrap: true,
+            //             itemCount: transctionDataList.length,
+            //             itemBuilder: (context, index) {
+            //               return Padding(
+            //                 padding: const EdgeInsets.all(8.0),
+            //                 child: Text(
+            //                   transctionDataList[index],
+            //                   style: const TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.w400,
+            //                       fontSize: 20),
+            //                 ),
+            //               );
+            //             },
+            //           ),
+            //         ),
+            //         const Text(
+            //           'No data found ',
+            //           style:
+            //               TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

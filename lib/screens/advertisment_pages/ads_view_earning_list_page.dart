@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class AdsViewEarningListPage extends StatefulWidget {
+import '../../modules/transactions/api/response/transactions_response.dart';
+import '../../modules/transactions/service/api_service.dart';
+
+class AdsViewEarningListPage extends ConsumerStatefulWidget {
   const AdsViewEarningListPage({super.key});
 
   @override
-  State<AdsViewEarningListPage> createState() => _AdsViewEarningListPageState();
+  createState() => _AdsViewEarningListPageState();
 }
 
-class _AdsViewEarningListPageState extends State<AdsViewEarningListPage> {
+class _AdsViewEarningListPageState
+    extends ConsumerState<AdsViewEarningListPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -27,12 +33,11 @@ class _AdsViewEarningListPageState extends State<AdsViewEarningListPage> {
 
   List items = ['Complete Payment', 'Pending Payment', 'Cancel Payment'];
   List transctionDataList = [
-    'Transaction ID',
-    'Gateway',
+    'Sl no',
+    'Advertisement Name',
+    'Advertisement Type',
     'Amount',
-    'Charge',
-    'Status',
-    'Date-Time'
+    'Date-Time',
   ];
 
   String _dropDownValue = "All Payment";
@@ -240,7 +245,7 @@ class _AdsViewEarningListPageState extends State<AdsViewEarningListPage> {
               child: Row(
                 children: [
                   Container(
-                    height: height * 0.4,
+                    height: height * 0.33,
                     width: width * 0.4,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -254,25 +259,125 @@ class _AdsViewEarningListPageState extends State<AdsViewEarningListPage> {
                       itemCount: transctionDataList.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.only(
+                              top: height * 0.023, left: width * 0.03),
                           child: Text(
                             transctionDataList[index],
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 20),
+                                fontSize: 15),
                           ),
                         );
                       },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'No data found ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                  SizedBox(
+                    height: height * 0.33,
+                    width: width * 0.546,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FutureBuilder(
+                          future: ref.read(appServiceProvider).earningList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('Some error occurs'),
+                              );
+                            }
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            final data = snapshot.data?.data!.data;
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: data!.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                          child:
+                                              Text(data![index].id.toString())),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(data[index]
+                                            .advertisement!
+                                            .adsName
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(data[index]
+                                            .advertisement!
+                                            .adsType
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(data[index]
+                                            .advertisement!
+                                            .userAmount
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                          child: Text(data[index]
+                                              .advertisement!
+                                              .createdAt
+                                              .toString())),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        )
+
+                        //  Text(
+                        //   'No data found ',
+                        //   style:
+                        //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        // ),
+                        ),
                   )
                 ],
               ),

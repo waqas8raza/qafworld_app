@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:qafworld_app/modules/transactions/api/response/transactions_response.dart';
+import 'package:qafworld_app/modules/transactions/service/api_service.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class AllTransactionPage extends StatefulWidget {
+class AllTransactionPage extends ConsumerStatefulWidget {
   const AllTransactionPage({super.key});
 
   @override
-  State<AllTransactionPage> createState() => _AllTransactionPageState();
+  createState() => _AllTransactionPageState();
 }
 
-class _AllTransactionPageState extends State<AllTransactionPage> {
+class _AllTransactionPageState extends ConsumerState<AllTransactionPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -35,7 +38,6 @@ class _AllTransactionPageState extends State<AllTransactionPage> {
     'Date-Time'
   ];
 
-  String _dropDownValue = "All Payment";
   final TextEditingController _languageController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -239,8 +241,8 @@ class _AllTransactionPageState extends State<AllTransactionPage> {
               child: Row(
                 children: [
                   Container(
-                    height: height * 0.4,
-                    width: width * 0.4,
+                    height: height * 0.33,
+                    width: width * 0.3,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
@@ -253,25 +255,134 @@ class _AllTransactionPageState extends State<AllTransactionPage> {
                       itemCount: transctionDataList.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.only(
+                              top: height * 0.023, left: width * 0.03),
                           child: Text(
                             transctionDataList[index],
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 20),
+                                fontSize: 15),
                           ),
                         );
                       },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'No data found ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                  SizedBox(
+                    height: height * 0.33,
+                    width: width * 0.646,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FutureBuilder(
+                          future:
+                              ref.read(appServiceProvider).getAllTransactions(),
+                          builder: (context,
+                              AsyncSnapshot<TransactionList> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            //  print(snapshot.data!.data?.first.createdAt);
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.data!.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].id
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].transactionType
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].finalBalance
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].charge
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].amount
+                                            .toString()),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey,
+                                      width: width * 0.2,
+                                      height: height * 0.001,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                      width: width * 0.10,
+                                      child: Center(
+                                        child: Text(snapshot
+                                            .data!.data![index].transactionType
+                                            .toString()),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        )
+
+                        //  Text(
+                        //   'No data found ',
+                        //   style:
+                        //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        // ),
+                        ),
                   )
                 ],
               ),

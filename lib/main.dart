@@ -16,11 +16,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = platformBrightness == Brightness.dark;
+
     final themeController = Get.put(ThemeController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: themeController.currentTheme.value,
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      // themeController.currentTheme.value,
+      themeMode: ThemeMode.system,
       home: const SplashScreen(),
     );
   }

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:qafworld_app/modules/transactions/service/api_service.dart';
 import 'package:qafworld_app/widgets/app_drawer_widget.dart';
 import 'package:qafworld_app/widgets/app_search_button.dart';
 import 'package:qafworld_app/widgets/appbar_widget.dart';
 import 'package:qafworld_app/widgets/text_field_widget.dart';
 
-class MyAdversisementListPage extends StatefulWidget {
+class MyAdversisementListPage extends ConsumerStatefulWidget {
   const MyAdversisementListPage({super.key});
 
   @override
-  State<MyAdversisementListPage> createState() =>
-      _MyAdversisementListPageState();
+  createState() => _MyAdversisementListPageState();
 }
 
-class _MyAdversisementListPageState extends State<MyAdversisementListPage> {
+class _MyAdversisementListPageState
+    extends ConsumerState<MyAdversisementListPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String allPayment = "All Payment";
 
@@ -299,13 +301,24 @@ class _MyAdversisementListPageState extends State<MyAdversisementListPage> {
                       },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'No data found ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                  FutureBuilder(
+                    future: ref.read(appServiceProvider).myAdvertisement(),
+                    builder: (context, snapshot) {
+                      print('hello ${snapshot.data}');
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'No data found ',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

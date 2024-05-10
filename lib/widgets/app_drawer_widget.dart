@@ -14,8 +14,8 @@ import '../screens/bottom_navbar.dart';
 import '../screens/contact_screen.dart';
 import '../screens/dashboard.dart';
 import '../screens/deposit_history.dart';
-import '../screens/facts_screen.dart';
-import '../screens/home.dart';
+import '../screens/faq_screen.dart';
+import '../screens/plan_page.dart';
 import '../screens/add_funds_page.dart';
 import '../screens/withdraw_history_page.dart';
 
@@ -47,10 +47,8 @@ class AppDrawerWidget extends StatelessWidget {
             ListTile(
               splashColor: Colors.blue,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const PlanPage()));
               },
               title: const Text('Plans'),
               leading: const Icon(Icons.home),
@@ -201,10 +199,8 @@ class AppDrawerWidget extends StatelessWidget {
             ListTile(
               splashColor: Colors.blue,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FactsScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FAQScreen()));
               },
               title: const Text('FAQ'),
               leading: const Icon(Icons.question_mark_rounded),

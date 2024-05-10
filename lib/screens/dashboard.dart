@@ -515,8 +515,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisSpacing: 15,
                       crossAxisSpacing: 15),
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: 7,
+                  physics: const ScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Material(
                       elevation: 4,
@@ -584,7 +584,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: height * 0.05,
                       width: width * 0.73,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(30),
                         gradient: const LinearGradient(
                             colors: [Color(0xfffaaf40), Color(0xff01acee)]),
                       ),
@@ -592,7 +592,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Text(
                         'Copy Link',
                         style: TextStyle(
-                            fontSize: 20,
+                            letterSpacing: 3,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       )),

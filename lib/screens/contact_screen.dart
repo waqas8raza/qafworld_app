@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:qafworld_app/screens/about_screen.dart';
-import 'package:qafworld_app/screens/facts_screen.dart';
-import 'package:qafworld_app/screens/home.dart';
-import 'package:qafworld_app/screens/login_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qafworld_app/modules/transactions/api/response/contact_us_response.dart';
+import 'package:qafworld_app/modules/transactions/service/api_service.dart';
+import 'package:qafworld_app/widgets/app_drawer_widget.dart';
+import 'package:qafworld_app/widgets/appbar_widget.dart';
 
-class ContactScreen extends StatefulWidget {
+class ContactScreen extends ConsumerStatefulWidget {
   const ContactScreen({super.key});
 
   @override
-  State<ContactScreen> createState() => _ContactScreenState();
+  createState() => _ContactScreenState();
 }
 
-class _ContactScreenState extends State<ContactScreen> {
+class _ContactScreenState extends ConsumerState<ContactScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   List names = ['Location', 'Email', 'Phone'];
   List icons = [
-    Icon(
+    const Icon(
       Icons.location_on,
       color: Colors.red,
     ),
-    Icon(Icons.email, color: Colors.red),
-    Icon(
+    const Icon(Icons.email, color: Colors.red),
+    const Icon(
       Icons.phone,
       color: Colors.red,
     )
@@ -37,231 +38,196 @@ class _ContactScreenState extends State<ContactScreen> {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        leading: Image.asset('assets/logo.png'),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            height: height * .04,
-            width: width * .1,
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xfffaaf40), Color(0xff01acee)]),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.pinkAccent.shade100),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInScreen()));
-              },
-              icon: const Icon(Icons.login),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            height: height * .04,
-            width: width * .1,
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xfffaaf40), Color(0xff01acee)]),
-                borderRadius: BorderRadius.circular(10)),
-            child: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState?.openEndDrawer();
-              },
-              icon: const Icon(Icons.menu),
-            ),
-          ),
-        ],
-        automaticallyImplyLeading: false,
-      ),
-      endDrawer: Drawer(
-        child: SizedBox(
-          height: height,
-          width: width,
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * .1,
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
-                title: Text('Home'),
-                leading: const Icon(Icons.home),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AboutScreen()));
-                },
-                title: const Text('About'),
-                leading: const Icon(Icons.perm_contact_calendar_sharp),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
-                title: const Text('Plan'),
-                leading: const Icon(Icons.next_plan_outlined),
-              ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>FactsScreen()));},
-                title: const Text('FAQ'),
-                leading: const Icon(Icons.question_mark_rounded),
-              ),
-              // ListTile(
-              //   splashColor: Colors.blue,
-              //   onTap: () {},
-              //   title: const Text('Blog'),
-              //   leading: const Icon(Icons.article),
-              // ),
-              ListTile(
-                splashColor: Colors.blue,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));
-                },
-                title: const Text('Contact'),
-                leading: const Icon(Icons.contact_page_rounded),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: AppBarWidget(scaffoldKey: _scaffoldKey),
+      endDrawer: AppDrawerWidget(height: height, width: width),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      height: height * 0.13,
-                      width: width * 0.8,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        leading: icons[index],
-                        title: Text(
-                          names[index],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        subtitle: Text(
-                          detail[index],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+              FutureBuilder(
+                future: ref.read(appServiceProvider).contactUs(),
+                builder: (context, AsyncSnapshot<ContactUsResponse> snapshot) {
+                  print(snapshot.data);
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  final contatData = snapshot.data!.data!.description;
+                  return Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        height: height * 0.13,
+                        width: width * 0.8,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.location_on,
+                            color: Colors.red,
+                          ),
+                          title: const Text(
+                            'Location',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          subtitle: Text(
+                            contatData!.address!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    );
-                  }),
-              Text(
-                'Just Drop Us A Line.',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo),
-              ),
-              Text(
-                'Give us a call or drop by anytime, we will be happy to answer your questions.',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-               SizedBox(
-                            height: height * 0.02,
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        height: height * 0.13,
+                        width: width * 0.8,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.email,
+                            color: Colors.red,
                           ),
+                          title: const Text(
+                            'Email',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          subtitle: Text(
+                            contatData.email!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        height: height * 0.13,
+                        width: width * 0.8,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.phone,
+                            color: Colors.red,
+                          ),
+                          title: const Text(
+                            'Phone',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          subtitle: Text(
+                            contatData.phone!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        contatData.heading!.toString(),
+                        style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.indigo),
+                      ),
+                      Text(
+                        contatData.subHeading!,
+                        //  'Give us a call or drop by anytime, we will be happy to answer your questions.',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
               Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Full Name',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Email Address',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Subject',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            ),
-                          ),
-                           SizedBox(
-                            height: height * 0.02,
-                          ),
-                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              maxLines: 3,
-                              decoration: InputDecoration(
-                                hintText: 'Your message',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            ),
-                          ),
-                           SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Container(
-                            height: height * 0.07,
-                            width: width * 0.7,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(colors: [
-                                  Color(0xfffaaf40),
-                                  Color(0xff01acee)
-                                ]),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Center(
-                                child: Text(
-                              'SUBMIT',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                          ),
-                        ),),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Full Name',
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Email Address',
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Subject',
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextFormField(
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    hintText: 'Your message',
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Container(
+                    height: height * 0.07,
+                    width: width * 0.7,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: [Color(0xfffaaf40), Color(0xff01acee)]),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Center(
+                        child: Text(
+                      'SUBMIT',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
